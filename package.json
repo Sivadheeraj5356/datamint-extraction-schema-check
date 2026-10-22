@@ -1,0 +1,7 @@
+{
+  "name": "datamint-extraction-schema-check",
+  "version": "1.0.0",
+  "description": "QA check for LLM data-extraction pipelines: schema violations, type drift, undeclared-field token waste and HTML residue",
+  "scripts": { "test": "node --test" },
+  "license": "MIT"
+}
