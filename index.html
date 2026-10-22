@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Extraction Schema Check</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>Extraction Schema Check</h1>
+    <p class="sub">When an LLM pipeline extracts structured data at scale, small quality problems multiply: records that violate the schema, fields that drift type, extracted fields nobody declared (token waste), and HTML residue in clean text. Paste a JSON Schema and extracted records (one JSON per line); the check flags potential issues using heuristics - it is a screen, not a full extraction audit.</p>
+  </header>
+
+  <section class="card">
+    <label class="lbl" for="schema">JSON Schema (subset: type, required, properties, items, enum)</label>
+    <textarea id="schema" rows="5" spellcheck="false">{"type":"object","required":["title","price"],"properties":{"title":{"type":"string"},"price":{"type":"number"},"url":{"type":"string"}}}</textarea>
+
+    <label class="lbl" for="records">Extracted records, one JSON object per line</label>
+    <textarea id="records" rows="6" spellcheck="false">{"title":"Wireless mouse","price":24.99,"url":"https://shop.example/p/1"}
+{"title":"&lt;b&gt;Mechanical keyboard&lt;/b&gt;","price":"89","url":"https://shop.example/p/2","raw_html_blob":"&lt;div class='pdp'&gt;...&lt;/div&gt;"}
+{"price":12.5}</textarea>
+
+    <button id="run" type="button">Run extraction check</button>
+  </section>
+
+  <section id="results" class="hidden">
+    <div class="card">
+      <h2>Findings <span id="stats" class="stats"></span></h2>
+      <ul id="findings" class="findings"></ul>
+    </div>
+  </section>
+
+  <footer>Plain HTML, CSS and JavaScript. No external services, build step or secrets. Tests: <code>npm test</code>.</footer>
+</main>
+<script src="schema.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
